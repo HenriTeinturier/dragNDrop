@@ -4,6 +4,7 @@ import { DragnDropByRw } from '../DragnDropByRw/DragnDropByRw';
 import { TodoList } from '../../features/todos/TodoList';
 import { DragndropTest } from '../DragndropTest/DragndropTest';
 import  {ScreenContext}  from '../../App';
+import { HeaderTitle } from '../HeaderTitle/HeaderTitle';
 
 export const Layout = () => {
   const {activeScreen} = useContext(ScreenContext);
@@ -11,6 +12,7 @@ export const Layout = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
       <Navbar />
+      <HeaderTitle activeScreen={activeScreen} />
       {
         activeScreen === 'dragnDropByRw' && <DragnDropByRw />
       }
@@ -20,6 +22,7 @@ export const Layout = () => {
       {
         activeScreen === 'dragndropTest' && <DragndropTest />
       }
+
       
     </div>
   )

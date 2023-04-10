@@ -37,12 +37,10 @@ const INITIAL_LIST = [
   
 ];
 
-const List = ({ list, onDragEnd, setActiveFolder, activeFolder }) => (
+const List = ({ list, setActiveFolder, activeFolder }) => 
 
-  <DragDropContext onDragEnd={onDragEnd}>
-    <Droppable droppableId="droppable">
-      {(provided) => (
-        <div className='listWrapper' ref={provided.innerRef} {...provided.droppableProps}>
+ (
+        <div className='listWrapper'>
           {
             list.filter((item, index) => (item.folder === activeFolder))
               .map((item, index) => (
@@ -51,52 +49,50 @@ const List = ({ list, onDragEnd, setActiveFolder, activeFolder }) => (
             )
           }
         </div>
-      )}
-    </Droppable>
-  </DragDropContext>
+
 );
 
 const Item = ({ index, item }) => (
-  <Draggable index={index} draggableId={item.id}>
-    {(provided, snapshot) => (
+
       <div
       className='listItem'
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-      >
+         >
         {item.firstName} {item.lastName}
       </div>
-    )}
-  </Draggable>
+
 );
 
 const Header = ({onDragEnd, activeFolder, setActiveFolder}) => {
 
   return (
-   <DragDropContext onDragEnd={onDragEnd}>
+  //  <DragDropContext onDragEnd={onDragEnd}>
 
-      <div className="headerWrapper">
-        <div 
-          className={`${activeFolder === 'racine' ? "active" : ""}  headerItem`}
-          onClick={() => setActiveFolder('racine')}
-        >
-          Racine
+        <div className="headerWrapper">
+          <div 
+            index={'racine'}
+            key={'racine'}
+            className={`${activeFolder === 'racine' ? "active" : ""}  headerItem`}
+            onClick={() => setActiveFolder('racine')}
+          >
+            Racine
+          </div>
+          <div 
+            index={'sub'}
+            key={'sub'}
+            className={`${activeFolder === 'sub' ? "active" : ""}  headerItem`} 
+            onClick={() => setActiveFolder('sub')}
+          >
+            Sous dossier
+          </div>
+          <div  
+            index={'subsub'}
+            key={'subsub'}
+            className={`${activeFolder === 'subsub' ? "active" : ""}  headerItem`} 
+            onClick={() => setActiveFolder('subsub')}
+          >
+            Sous sous dossier
+          </div>
         </div>
-        <div 
-          className={`${activeFolder === 'sub' ? "active" : ""}  headerItem`} 
-          onClick={() => setActiveFolder('sub')}
-        >
-          Sous dossier
-        </div>
-        <div  
-          className={`${activeFolder === 'subsub' ? "active" : ""}  headerItem`} 
-          onClick={() => setActiveFolder('subsub')}
-        >
-          Sous sous dossier
-        </div>
-      </div>
-    </DragDropContext>
 
   )
 }
@@ -109,21 +105,13 @@ export const DragndropTest = () => {
     setList(INITIAL_LIST)
   }, [])
 
-  const handleDragEnd = ({ destination, source }) => {
-    console.log( 'source', source)
-     if (!destination) return;
-    const updatedList = list.filter((item, index) => index !== source.index);
-     setList(updatedList);
 
-    // setList(reorder(list, source.index, destination.index));
-  };
 
   return (
     <>
-      {/* <DragDropContext> */}
-        <Header onDragEnd={handleDragEnd}  setActiveFolder={setActiveFolder} activeFolder={activeFolder} />
-        <List list={list} onDragEnd={handleDragEnd} setActiveFolder={setActiveFolder} activeFolder={activeFolder} />
-      {/* </DragDropContext> */}
+
+        <Header  setActiveFolder={setActiveFolder} activeFolder={activeFolder} />
+        <List list={list} setActiveFolder={setActiveFolder} activeFolder={activeFolder} />
     </>
   )
 }
