@@ -50,16 +50,6 @@ const Item = ({ index, item }) => (
   </Draggable>
 );
 
-const Header = () => {
-
-  return (
-    <div className="headerWrapper">
-      <div className="headerItem">Racine</div>
-      <div className="headerItem" >Sous dossier</div>
-      <div className="headerItem" >Sous sous dossier</div>
-    </div>
-  )
-}
 
 const reorder = (list, startIndex, endIndex) => {
   console.log('list', list, 'startIndex', startIndex, 'endIndex', endIndex)
@@ -86,7 +76,7 @@ export const DragnDropByRw = () => {
   return (
     <>
       {/* <DragDropContext> */}
-        <Header />
+
         <List list={list} onDragEnd={handleDragEnd} />
       {/* </DragDropContext> */}
     </>
