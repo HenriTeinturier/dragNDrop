@@ -5,6 +5,7 @@ import { TodoList } from '../../features/todos/TodoList';
 import { DragndropTest } from '../DragndropTest/DragndropTest';
 import  {ScreenContext}  from '../../App';
 import { HeaderTitle } from '../HeaderTitle/HeaderTitle';
+import { ReactDndChess } from '../ReactDndChess/ReactDndChess';
 
 export const Layout = () => {
   const {activeScreen} = useContext(ScreenContext);
@@ -21,6 +22,9 @@ export const Layout = () => {
       }
       {
         activeScreen === 'dragndropTest' && <DragndropTest />
+      }
+      {
+        activeScreen === 'reactdnd' && <ReactDndChess />
       }
 
       
