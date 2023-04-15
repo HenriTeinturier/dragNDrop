@@ -1,0 +1,39 @@
+.reactDndChessTitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.chessWrapper {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+  // align-items: center;
+  // flex-direction: column;
+}
+
+.boardWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 800px;
+  // height: 100%;
+  flex-wrap: wrap;
+}
+
+.square {
+  background-color: fill;
+  height: 100px;
+  width: 100px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+}
+
+.squareWrapper {
+  width: 12.5%;
+  height: 12.5%;
+}
