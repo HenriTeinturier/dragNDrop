@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -13,7 +15,9 @@ const queryClient = new QueryClient();
 root.render(
   // <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
       <ReactQueryDevtools initialIsOpen />
     </QueryClientProvider>
   // </React.StrictMode>
