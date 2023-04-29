@@ -33,7 +33,7 @@ export const Knight = () => {
         className="knight" 
         ref={drag}
         style={{
-          // opacity: isDragging ? 0.5 : 1,
+          opacity: isDragging ? 0.5 : 1,
           // fontSize: '8rem',
           // fontWeight: 'bold',
           // backgroundColor: isDragging ? 'transparent' : "",
