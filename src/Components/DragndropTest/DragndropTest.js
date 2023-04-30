@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./dragndropTest.scss";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrag, useDragLayer, useDrop } from "react-dnd";
 import { changeFolderItem } from "./Functions/functions";
+import { motion } from "framer-motion";
 
 const INITIAL_LIST = [
   {
@@ -52,48 +53,67 @@ const List = ({ list, setActiveFolder, activeFolder }) => (
 );
 
 const Item = ({ index, item }) => {
+  const constraintsRef = useRef(null);
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.ITEM,
-    item: { item },
+    type: ItemTypes.ITEM, //* ItemTypes est utilie si on veut utiliser typescript en créeant un objet type. Peut etre utilie également si on veut réutiliser à différents endroits. On aurait pu mettre tout simplement type: "item". C'est une clé pour rreconnaître ce type d'élement. L'élément est ce que nous souhaitons déplacer.
+    item: { item }, //* item sera récupérable dans le drop du drop via item. Dedans j'ai mis item mais j'aurais pu mettre n'importe quoi.
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
-      const getItem = monitor.getItem();
-      const didDrop = monitor.didDrop();
-      // console.log("item", item);
-      // console.log("monitor", monitor);
-      // console.log("dropResult", dropResult);
-      // console.log("getItem", getItem);
-      // console.log("didDrop", didDrop);
-      // console.log("isDragging", isDragging);
+      // const getItem = monitor.getItem();
+      // const didDrop = monitor.didDrop();
       if (item && dropResult) {
         console.log(`You dropped ${item} into ${dropResult}!`);
       }
     },
+    //* collect est optionnel. Mais si nous voulons récupérer isDragging ou autres c'est utile
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
-      handlerId: monitor.getHandlerId(),
+      // handlerId: monitor.getHandlerId(),
     }),
   }));
 
   return (
-    <div
-      className="listItem"
-      ref={drag}
-      style={{
-        backgroundColor: isDragging ? "crimson" : "",
-        opacity: isDragging ? "0.9" : "",
-      }}
-    >
-      {item.firstName} {item.lastName}
-    </div>
+    <>
+      {/*   {!isDragging && ( */}
+      <motion.div drag>
+        <motion.div
+          // drag
+          className="listItem"
+          ref={drag}
+          // onMouseDown={(e) => e.preventDefault()}
+          onMouseDown={(e) => {
+            console.log(e);
+          }}
+          style={{
+            backgroundColor: isDragging ? "crimson" : "",
+            opacity: isDragging ? "1" : "",
+            // border: isDragging ? "5px solid white" : "",
+          }}
+        >
+          {item.firstName} {item.lastName}
+        </motion.div>
+      </motion.div>
+
+      {/* )} */}
+      {/* {isDragging && (
+        <div
+          className="listItem dragPreview"
+          style={{
+            ...previewStyle,
+          }}
+        >
+          {item.firstName} {item.lastName}
+        </div>
+      )} */}
+    </>
   );
 };
 
 const MenuItem = ({ index, active, setActiveFolder, list, setList }) => {
   const newFolder = index;
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: ItemTypes.ITEM,
-    drop: (item, monitor) => changeFolderItem(item, list, setList, newFolder),
+    accept: ItemTypes.ITEM, //* Comme son nom l'indique le type précédemment défini qui est accepté.
+    drop: (item) => changeFolderItem(item, list, setList, newFolder),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
@@ -174,5 +194,3 @@ export const DragndropTest = () => {
     </>
   );
 };
-
-// export default DragnDropByRw

@@ -15,22 +15,6 @@ npm i json-server -g
 npx json-server -w data/db.json -p 3500
 ```
 
-<!-- <table>
-  <tr>
-    <td valign="top" align="center">
-      <strong>React-Beautiful & useQuery</strong><br>
-      <img src="src/pictures/reactBeautiful&useQuery.png" alt="Texte alternatif 1" width="100%" />
-    </td>
-    <td valign="top" align="center">
-      <strong>React-Dnd change folder Item</strong><br>
-      <img src="src/pictures/reactDndChangeFolder.png" alt="Texte alternatif 2" width="100%" />
-    </td>
-    <td valign="top" align="center">
-      <strong>React-Dnd Tuto Chess</strong><br>
-      <img src="src/pictures/reactDndTutoChess.png" alt="Texte alternatif 3" width="100%" />
-    </td>
-  </tr>
-</table> -->
 <table>
   <tr>
     <td valign="top" align="center">
